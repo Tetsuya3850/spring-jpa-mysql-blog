@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -24,5 +25,19 @@ public class CommentController {
             @Valid @RequestBody CommentRequest commentRequest
     ) {
         return commentService.saveComment(blogId, commentRequest);
+    }
+
+    @GetMapping("/blogs/{blogId}")
+    List<Comment> getCommentsOfBlog(
+            @PathVariable Long blogId
+    ) {
+        return commentService.getCommentsOfBlog(blogId);
+    }
+
+    @DeleteMapping("/{commentId}")
+    void deleteComment(
+            @PathVariable Long commentId
+    ) {
+        commentService.deleteComment(commentId);
     }
 }

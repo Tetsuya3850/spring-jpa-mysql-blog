@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Objects;
 
 @AllArgsConstructor
@@ -20,7 +19,7 @@ public class BlogService {
 
     private final BlogRepository blogRepository;
 
-    public final int PAGE_SIZE = 2;
+    public final int PAGE_SIZE = 3;
 
     public Blog saveBlog(BlogRequest blogRequest) {
         Blog newBlog = new Blog(
@@ -42,5 +41,9 @@ public class BlogService {
                 blogId,
                 Visibility.valueOf(visibilityRequest.getVisibility())
         );
+    }
+
+    public void deleteBlog(Long blogId) {
+        blogRepository.deleteById(blogId);
     }
 }

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -24,6 +26,7 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name="blog_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Blog blog;
 
     public Comment(String text, Long timestamp, Blog blog) {

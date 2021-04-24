@@ -26,16 +26,23 @@ public class BlogController {
 
     @GetMapping("")
     Page<Blog> findAllPublicBlogs(
-            @RequestParam(defaultValue="0") int pageNum
+            @RequestParam(defaultValue = "0") int pageNum
     ) {
         return blogService.findAllPublicBlogs(pageNum);
     }
 
-    @PostMapping("/{blogId}/visibility")
+    @PutMapping("/{blogId}/visibility")
     void updateVisibility(
             @PathVariable Long blogId,
             @Valid @RequestBody VisibilityRequest visibilityRequest
     ) {
         blogService.updateVisibility(blogId, visibilityRequest);
+    }
+
+    @DeleteMapping("/{blogId}")
+    void deleteBlog(
+            @PathVariable Long blogId
+    ) {
+        blogService.deleteBlog(blogId);
     }
 }

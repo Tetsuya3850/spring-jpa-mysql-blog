@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface BlogRepository extends JpaRepository<Blog, Long> {
+
     Page<Blog> findByVisibilityOrderByCreatedAtDesc(Visibility visibility, Pageable pageable);
 
     @Modifying

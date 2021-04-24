@@ -8,6 +8,8 @@ import com.example.blog.Repository.CommentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Service
 public class CommentService {
@@ -28,5 +30,20 @@ public class CommentService {
                 blog
         );
         return commentRepository.save(newComment);
+    }
+
+    public List<Comment> getCommentsOfBlog(
+            Long blogId
+    ) {
+        Blog blog = blogRepository
+                .findById(blogId)
+                .orElseThrow(() -> new RuntimeException());
+        return commentRepository.findByBlog(blog);
+    }
+
+    public void deleteComment(
+            Long commentId
+    ) {
+        commentRepository.deleteById(commentId);
     }
 }
