@@ -1,10 +1,7 @@
 package com.example.blog.Controller;
 
-import com.example.blog.Controller.Resource.BlogRequest;
 import com.example.blog.Controller.Resource.CommentRequest;
-import com.example.blog.Entity.Blog;
 import com.example.blog.Entity.Comment;
-import com.example.blog.Service.BlogService;
 import com.example.blog.Service.CommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
