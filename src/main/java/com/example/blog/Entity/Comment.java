@@ -24,7 +24,7 @@ public class Comment {
 
     private Long timestamp;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="blog_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Blog blog;

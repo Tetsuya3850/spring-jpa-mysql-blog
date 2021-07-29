@@ -35,6 +35,11 @@ public class Blog {
 
     private Location location;
 
+    /*
+    @Version
+    private long version;
+    */
+
     public Blog(String text, Visibility visibility, Double lat, Double lon) {
         this.text = text;
         this.visibility = visibility;
