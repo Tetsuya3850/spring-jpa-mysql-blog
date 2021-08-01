@@ -1,5 +1,6 @@
 package com.example.blog.Controller.Resource;
 
+import com.example.blog.Service.model.Visibility;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class BlogRequest {
     @Size(min=2, max=30)
     private String text;
 
-    private String visibility;
+    private Visibility visibility;
 
     private Location location;
 

@@ -1,10 +1,7 @@
 package com.example.blog.Entity;
 
 import com.example.blog.Service.model.Visibility;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,6 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 @Entity
 public class Blog {
 
@@ -35,10 +33,8 @@ public class Blog {
 
     private Location location;
 
-    /*
     @Version
     private long version;
-    */
 
     public Blog(String text, Visibility visibility, Double lat, Double lon) {
         this.text = text;
@@ -51,6 +47,7 @@ public class Blog {
     @NoArgsConstructor
     @Getter
     @Setter
+    @ToString
     public static class Location {
         @Column(name = "location_lat")
         private Double lat;

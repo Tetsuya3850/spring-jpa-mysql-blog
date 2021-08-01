@@ -1,5 +1,6 @@
 package com.example.blog.Controller;
 
+import com.example.blog.Controller.Resource.BlogPageResponse;
 import com.example.blog.Controller.Resource.BlogRequest;
 import com.example.blog.Controller.Resource.VisibilityRequest;
 import com.example.blog.Entity.Blog;
@@ -25,10 +26,14 @@ public class BlogController {
     }
 
     @GetMapping("")
-    Page<Blog> findAllPublicBlogs(
+    BlogPageResponse findAllPublicBlogs(
             @RequestParam(defaultValue = "0") int pageNum
     ) {
-        return blogService.findAllPublicBlogs(pageNum);
+        Page<Blog> blogPage = blogService.findAllPublicBlogs(pageNum);
+        return new BlogPageResponse(
+                blogPage.getTotalElements(),
+                blogPage.getContent()
+        );
     }
 
     @PutMapping("/{blogId}/visibility")

@@ -24,7 +24,7 @@ public class BlogService {
     public Blog saveBlog(BlogRequest blogRequest) {
         Blog newBlog = new Blog(
                 blogRequest.getText(),
-                Visibility.valueOf(blogRequest.getVisibility()),
+                blogRequest.getVisibility(),
                 Objects.nonNull(blogRequest.getLocation()) ? blogRequest.getLocation().getLat() : null,
                 Objects.nonNull(blogRequest.getLocation()) ? blogRequest.getLocation().getLon() : null
         );
