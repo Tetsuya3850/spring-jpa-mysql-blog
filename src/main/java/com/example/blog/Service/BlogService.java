@@ -39,7 +39,7 @@ public class BlogService {
     public void updateVisibility(Long blogId, VisibilityRequest visibilityRequest) {
         blogRepository.setVisibilityFor(
                 blogId,
-                Visibility.valueOf(visibilityRequest.getVisibility())
+                visibilityRequest.getVisibility()
         );
     }
 

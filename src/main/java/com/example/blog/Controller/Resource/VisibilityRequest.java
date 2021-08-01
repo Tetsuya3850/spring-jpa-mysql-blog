@@ -1,5 +1,6 @@
 package com.example.blog.Controller.Resource;
 
+import com.example.blog.Service.model.Visibility;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,5 +12,5 @@ import javax.validation.constraints.NotNull;
 @Getter
 public class VisibilityRequest {
     @NotNull
-    private String visibility;
+    private Visibility visibility;
 }
