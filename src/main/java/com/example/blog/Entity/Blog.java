@@ -1,6 +1,7 @@
 package com.example.blog.Entity;
 
 import com.example.blog.Service.model.Visibility;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

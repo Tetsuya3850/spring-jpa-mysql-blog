@@ -1,13 +1,17 @@
 package com.example.blog.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,16 +26,16 @@ public class Comment {
 
     private String text;
 
-    private Long timestamp;
+    @CreationTimestamp
+    private Date createdAt;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="blog_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Blog blog;
 
-    public Comment(String text, Long timestamp, Blog blog) {
+    public Comment(String text, Blog blog) {
         this.text = text;
-        this.timestamp = timestamp;
         this.blog = blog;
     }
 }

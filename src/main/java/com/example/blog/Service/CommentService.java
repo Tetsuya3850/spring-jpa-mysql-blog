@@ -8,6 +8,7 @@ import com.example.blog.Repository.CommentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @AllArgsConstructor
@@ -21,12 +22,9 @@ public class CommentService {
             Long blogId,
             CommentRequest commentRequest
     ) {
-        Blog blog = blogRepository
-                .findById(blogId)
-                .orElseThrow(() -> new RuntimeException());
+        Blog blog = blogRepository.getOne(blogId);
         Comment newComment = new Comment(
                 commentRequest.getText(),
-                System.currentTimeMillis() / 1000,
                 blog
         );
         return commentRepository.save(newComment);
@@ -35,9 +33,7 @@ public class CommentService {
     public List<Comment> getCommentsOfBlog(
             Long blogId
     ) {
-        Blog blog = blogRepository
-                .findById(blogId)
-                .orElseThrow(() -> new RuntimeException());
+        Blog blog = blogRepository.getOne(blogId);
         return commentRepository.findByBlog(blog);
     }
 
