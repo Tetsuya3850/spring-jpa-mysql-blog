@@ -110,6 +110,16 @@ class BlogApplicationTests {
 		assertEquals(HttpStatus.OK, getCommentsByBlogResponse1.getStatusCode());
 		assertEquals(COMMENT_TEXT_1, getCommentsByBlogResponse1.getBody().get(0).getText());
 		assertNull(getCommentsByBlogResponse1.getBody().get(0).getBlog());
+
+		// deleteComment
+		restTemplate.exchange(
+				"/comments/" + commentId1, HttpMethod.DELETE, new HttpEntity<>(new HttpHeaders()), Void.class);
+
+		// getCommentsByBlog becomes 0
+		ResponseEntity<List<CommentResponse>> getCommentsByBlogResponse2 = restTemplate.exchange(
+				"/comments/blogs/" + blogId1, HttpMethod.GET, new HttpEntity<>(new HttpHeaders()), new ParameterizedTypeReference<List<CommentResponse>>() {});
+		assertEquals(HttpStatus.OK, getCommentsByBlogResponse2.getStatusCode());
+		assertEquals(0, getCommentsByBlogResponse2.getBody().size());
 	}
 
 }
