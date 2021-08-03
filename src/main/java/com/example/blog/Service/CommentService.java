@@ -3,6 +3,7 @@ package com.example.blog.Service;
 import com.example.blog.Controller.Resource.CommentRequest;
 import com.example.blog.Entity.Blog;
 import com.example.blog.Entity.Comment;
+import com.example.blog.Entity.CommentTextOnly;
 import com.example.blog.Repository.BlogRepository;
 import com.example.blog.Repository.CommentRepository;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,12 @@ public class CommentService {
     ) {
         Blog blog = blogRepository.getOne(blogId);
         return commentRepository.findByBlog(blog);
+    }
+
+    public List<CommentTextOnly> getCommentsByText(
+            String text
+    ) {
+        return commentRepository.findByText(text);
     }
 
     public void deleteComment(

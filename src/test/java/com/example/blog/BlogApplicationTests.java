@@ -3,6 +3,7 @@ package com.example.blog;
 import com.example.blog.Controller.Resource.*;
 import com.example.blog.Entity.Blog;
 import com.example.blog.Entity.Comment;
+import com.example.blog.Entity.CommentTextOnly;
 import com.example.blog.Service.model.Visibility;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,6 +111,12 @@ class BlogApplicationTests {
 		assertEquals(HttpStatus.OK, getCommentsByBlogResponse1.getStatusCode());
 		assertEquals(COMMENT_TEXT_1, getCommentsByBlogResponse1.getBody().get(0).getText());
 		assertNull(getCommentsByBlogResponse1.getBody().get(0).getBlog());
+
+		// getCommentsByText
+		ResponseEntity<List<Comment>> getCommentsByTextResponse = restTemplate.exchange(
+				"/comments?text=" + COMMENT_TEXT_1, HttpMethod.GET, new HttpEntity<>(new HttpHeaders()), new ParameterizedTypeReference<List<Comment>>() {});
+		assertEquals(HttpStatus.OK, getCommentsByTextResponse.getStatusCode());
+		assertEquals(COMMENT_TEXT_1, getCommentsByTextResponse.getBody().get(0).getText());
 
 		// deleteComment
 		restTemplate.exchange(
