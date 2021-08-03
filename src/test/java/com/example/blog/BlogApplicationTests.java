@@ -1,9 +1,6 @@
 package com.example.blog;
 
-import com.example.blog.Controller.Resource.BlogPageResponse;
-import com.example.blog.Controller.Resource.BlogRequest;
-import com.example.blog.Controller.Resource.CommentRequest;
-import com.example.blog.Controller.Resource.VisibilityRequest;
+import com.example.blog.Controller.Resource.*;
 import com.example.blog.Entity.Blog;
 import com.example.blog.Entity.Comment;
 import com.example.blog.Service.model.Visibility;
@@ -101,15 +98,15 @@ class BlogApplicationTests {
 				COMMENT_TEXT_1
 		);
 		HttpEntity<Object> saveCommentHttpEntity = new HttpEntity<>(commentRequest1);
-		ResponseEntity<Comment> saveCommentResponse1 = restTemplate.exchange(
-				"/comments/blogs/" + blogId1, HttpMethod.POST, saveCommentHttpEntity, Comment.class);
+		ResponseEntity<CommentResponse> saveCommentResponse1 = restTemplate.exchange(
+				"/comments/blogs/" + blogId1, HttpMethod.POST, saveCommentHttpEntity, CommentResponse.class);
 		assertEquals(HttpStatus.OK, saveCommentResponse1.getStatusCode());
 		assertEquals(COMMENT_TEXT_1, saveCommentResponse1.getBody().getText());
 		Long commentId1 = saveBlogResponse1.getBody().getId();
 
 		// getCommentsByBlog
-		ResponseEntity<List<Comment>> getCommentsByBlogResponse1 = restTemplate.exchange(
-				"/comments/blogs/" + blogId1, HttpMethod.GET, new HttpEntity<>(new HttpHeaders()), new ParameterizedTypeReference<List<Comment>>() {});
+		ResponseEntity<List<CommentResponse>> getCommentsByBlogResponse1 = restTemplate.exchange(
+				"/comments/blogs/" + blogId1, HttpMethod.GET, new HttpEntity<>(new HttpHeaders()), new ParameterizedTypeReference<List<CommentResponse>>() {});
 		assertEquals(HttpStatus.OK, getCommentsByBlogResponse1.getStatusCode());
 		assertEquals(COMMENT_TEXT_1, getCommentsByBlogResponse1.getBody().get(0).getText());
 		assertNull(getCommentsByBlogResponse1.getBody().get(0).getBlog());

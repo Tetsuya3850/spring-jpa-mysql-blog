@@ -29,7 +29,6 @@ public class Comment {
     @CreationTimestamp
     private Date createdAt;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="blog_id")
     private Blog blog;
