@@ -2,15 +2,12 @@ package com.example.blog;
 
 import com.example.blog.Controller.Resource.*;
 import com.example.blog.Entity.Blog;
-import com.example.blog.Entity.Comment;
-import com.example.blog.Entity.CommentTextOnly;
 import com.example.blog.Service.model.Visibility;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.data.domain.Page;
 import org.springframework.http.*;
 
 import java.util.List;
@@ -113,8 +110,8 @@ class BlogApplicationTests {
 		assertNull(getCommentsByBlogResponse1.getBody().get(0).getBlog());
 
 		// getCommentsByText
-		ResponseEntity<List<Comment>> getCommentsByTextResponse = restTemplate.exchange(
-				"/comments?text=" + COMMENT_TEXT_1, HttpMethod.GET, new HttpEntity<>(new HttpHeaders()), new ParameterizedTypeReference<List<Comment>>() {});
+		ResponseEntity<List<CommentResponse>> getCommentsByTextResponse = restTemplate.exchange(
+				"/comments?text=" + COMMENT_TEXT_1, HttpMethod.GET, new HttpEntity<>(new HttpHeaders()), new ParameterizedTypeReference<List<CommentResponse>>() {});
 		assertEquals(HttpStatus.OK, getCommentsByTextResponse.getStatusCode());
 		assertEquals(COMMENT_TEXT_1, getCommentsByTextResponse.getBody().get(0).getText());
 
