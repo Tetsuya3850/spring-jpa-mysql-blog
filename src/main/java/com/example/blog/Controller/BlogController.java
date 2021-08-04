@@ -7,6 +7,7 @@ import com.example.blog.Entity.Blog;
 import com.example.blog.Service.BlogService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -29,9 +30,9 @@ public class BlogController {
     BlogPageResponse findAllPublicBlogs(
             @RequestParam(defaultValue = "0") int pageNum
     ) {
-        Page<Blog> blogPage = blogService.findAllPublicBlogs(pageNum);
+        Slice<Blog> blogPage = blogService.findAllPublicBlogs(pageNum);
         return new BlogPageResponse(
-                blogPage.getTotalElements(),
+                blogPage.hasNext(),
                 blogPage.getContent()
         );
     }

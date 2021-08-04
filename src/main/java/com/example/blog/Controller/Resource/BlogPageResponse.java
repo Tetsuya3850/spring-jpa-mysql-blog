@@ -11,6 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 public class BlogPageResponse {
-    private long totalCount;
+    private boolean hasNext;
     private List<Blog> blogs;
 }
