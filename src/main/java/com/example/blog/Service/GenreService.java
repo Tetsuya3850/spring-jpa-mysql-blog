@@ -44,6 +44,8 @@ public class GenreService {
         Genre genre = genreRepository
                 .findById(genreId)
                 .orElseThrow(() -> new RuntimeException());
-        return genreDetailsRepository.findByGenre(genre);
+        return genreDetailsRepository
+                .findByGenre(genre)
+                .orElseThrow(() -> new RuntimeException());
     }
 }

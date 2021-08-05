@@ -2,7 +2,6 @@ package com.example.blog.Repository;
 
 import com.example.blog.Entity.Blog;
 import com.example.blog.Service.model.Visibility;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;

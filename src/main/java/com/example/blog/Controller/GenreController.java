@@ -1,6 +1,5 @@
 package com.example.blog.Controller;
 
-import com.example.blog.Controller.Resource.BlogRequest;
 import com.example.blog.Controller.Resource.GenreRequest;
 import com.example.blog.Entity.Genre;
 import com.example.blog.Entity.GenreDetails;

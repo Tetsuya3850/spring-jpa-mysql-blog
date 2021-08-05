@@ -6,7 +6,6 @@ import com.example.blog.Controller.Resource.VisibilityRequest;
 import com.example.blog.Entity.Blog;
 import com.example.blog.Service.BlogService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.*;
 
