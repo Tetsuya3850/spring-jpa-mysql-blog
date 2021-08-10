@@ -13,4 +13,7 @@ import javax.validation.constraints.NotNull;
 public class VisibilityRequest {
     @NotNull
     private Visibility visibility;
+
+    @NotNull
+    private long version;
 }

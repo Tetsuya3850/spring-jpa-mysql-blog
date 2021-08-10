@@ -22,6 +22,7 @@ public class Blog {
 
     private String text;
 
+    @Column(updatable = false)
     @CreationTimestamp
     private Date createdAt;
 

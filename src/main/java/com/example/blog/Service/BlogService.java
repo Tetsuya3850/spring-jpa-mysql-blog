@@ -37,10 +37,16 @@ public class BlogService {
 
     @Transactional
     public void updateVisibility(Long blogId, VisibilityRequest visibilityRequest) {
+        Blog blog = blogRepository.getOne(blogId);
+        System.out.println("Version : " + visibilityRequest.getVersion());
+        blog.setVersion(visibilityRequest.getVersion());
+        blog.setVisibility(visibilityRequest.getVisibility());
+        /*
         blogRepository.setVisibilityFor(
                 blogId,
                 visibilityRequest.getVisibility()
         );
+         */
     }
 
     public void deleteBlog(Long blogId) {

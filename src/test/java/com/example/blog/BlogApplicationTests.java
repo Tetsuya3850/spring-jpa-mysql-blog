@@ -68,7 +68,7 @@ class BlogApplicationTests {
 
 		// updateVisibility
 		VisibilityRequest updateVisibilityRequest1 = new VisibilityRequest(
-				Visibility.PRIVATE
+				Visibility.PRIVATE, findAllPublicBlogs.getBody().getBlogs().get(0).getVersion()
 		);
 		HttpEntity<Object> updateVisibilityHttpEntity1 = new HttpEntity<>(updateVisibilityRequest1);
 		restTemplate.exchange(
