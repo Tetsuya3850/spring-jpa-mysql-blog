@@ -1,7 +1,7 @@
 package com.example.blog.Service;
 
-import com.example.blog.Controller.Resource.BlogRequest;
-import com.example.blog.Controller.Resource.VisibilityRequest;
+import com.example.blog.Controller.Resource.NewBlogRequest;
+import com.example.blog.Controller.Resource.UpdateBlogRequest;
 import com.example.blog.Entity.Blog;
 import com.example.blog.Repository.BlogRepository;
 import com.example.blog.Service.model.Visibility;
@@ -21,12 +21,12 @@ public class BlogService {
 
     public final int PAGE_SIZE = 3;
 
-    public Blog saveBlog(BlogRequest blogRequest) {
+    public Blog saveBlog(NewBlogRequest newBlogRequest) {
         Blog newBlog = new Blog(
-                blogRequest.getText(),
-                blogRequest.getVisibility(),
-                Objects.nonNull(blogRequest.getLocation()) ? blogRequest.getLocation().getLat() : null,
-                Objects.nonNull(blogRequest.getLocation()) ? blogRequest.getLocation().getLon() : null
+                newBlogRequest.getText(),
+                newBlogRequest.getVisibility(),
+                Objects.nonNull(newBlogRequest.getLocation()) ? newBlogRequest.getLocation().getLat() : null,
+                Objects.nonNull(newBlogRequest.getLocation()) ? newBlogRequest.getLocation().getLon() : null
         );
         return blogRepository.save(newBlog);
     }
@@ -35,16 +35,16 @@ public class BlogService {
         return blogRepository.findByVisibilityOrderByCreatedAtDesc(Visibility.PUBLIC, PageRequest.of(pageNum, PAGE_SIZE));
     }
 
-    @Transactional
-    public void updateVisibility(Long blogId, VisibilityRequest visibilityRequest) {
-        Blog blog = blogRepository.getOne(blogId);
-        blog.setVisibility(visibilityRequest.getVisibility());
-        /*
-        blogRepository.setVisibilityFor(
+    public void updateBlog(Long blogId, UpdateBlogRequest updateBlogRequest) {
+        Blog updateBlog = new Blog(
                 blogId,
-                visibilityRequest.getVisibility()
+                updateBlogRequest.getText(),
+                updateBlogRequest.getVisibility(),
+                Objects.nonNull(updateBlogRequest.getLocation()) ? updateBlogRequest.getLocation().getLat() : null,
+                Objects.nonNull(updateBlogRequest.getLocation()) ? updateBlogRequest.getLocation().getLon() : null,
+                updateBlogRequest.getVersion()
         );
-         */
+       blogRepository.save(updateBlog);
     }
 
     public void deleteBlog(Long blogId) {

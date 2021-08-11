@@ -11,6 +11,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -27,15 +28,15 @@ class BlogApplicationTests {
 
 		// saveBlog
 		String BLOG_TEXT_1 = "BLOG_TEXT_1";
-		BlogRequest blogRequest1 = new BlogRequest(
+		NewBlogRequest newBlogRequest1 = new NewBlogRequest(
 				BLOG_TEXT_1,
 				Visibility.PUBLIC,
-				new BlogRequest.Location(
+				new Location(
 						35.7,
 						135.9
 				)
 		);
-		HttpEntity<Object> saveBlogHttpEntity = new HttpEntity<>(blogRequest1);
+		HttpEntity<Object> saveBlogHttpEntity = new HttpEntity<>(newBlogRequest1);
 		ResponseEntity<Blog> saveBlogResponse1 = restTemplate.exchange(
 				"/blogs", HttpMethod.POST, saveBlogHttpEntity, Blog.class);
 		assertEquals(HttpStatus.OK, saveBlogResponse1.getStatusCode());
@@ -44,15 +45,15 @@ class BlogApplicationTests {
 
 		// saveBlog 2
 		String BLOG_TEXT_2 = "BLOG_TEXT_2";
-		BlogRequest blogRequest2 = new BlogRequest(
+		NewBlogRequest newBlogRequest2 = new NewBlogRequest(
 				BLOG_TEXT_2,
 				Visibility.PUBLIC,
-				new BlogRequest.Location(
+				new Location(
 						85.7,
 						85.9
 				)
 		);
-		HttpEntity<Object> saveBlogHttpEntity2 = new HttpEntity<>(blogRequest2);
+		HttpEntity<Object> saveBlogHttpEntity2 = new HttpEntity<>(newBlogRequest2);
 		ResponseEntity<Blog> saveBlogResponse2 = restTemplate.exchange(
 				"/blogs", HttpMethod.POST, saveBlogHttpEntity2, Blog.class);
 		assertEquals(HttpStatus.OK, saveBlogResponse2.getStatusCode());
@@ -66,13 +67,19 @@ class BlogApplicationTests {
 		assertEquals(BLOG_TEXT_2, findAllPublicBlogs.getBody().getBlogs().get(0).getText());
 		assertEquals(BLOG_TEXT_1, findAllPublicBlogs.getBody().getBlogs().get(1).getText());
 
-		// updateVisibility
-		VisibilityRequest updateVisibilityRequest1 = new VisibilityRequest(
-				Visibility.PRIVATE, findAllPublicBlogs.getBody().getBlogs().get(0).getVersion()
+		// updateBlog this time for visibility
+		Blog blog1 = findAllPublicBlogs.getBody().getBlogs().get(0);
+		UpdateBlogRequest updateBlogRequest1 = new UpdateBlogRequest(
+				blog1.getText(),
+				Visibility.PRIVATE,
+				Objects.nonNull(blog1.getLocation())
+						? new Location(blog1.getLocation().getLat(), blog1.getLocation().getLon())
+						: null,
+				blog1.getVersion()
 		);
-		HttpEntity<Object> updateVisibilityHttpEntity1 = new HttpEntity<>(updateVisibilityRequest1);
+		HttpEntity<Object> updateVisibilityHttpEntity1 = new HttpEntity<>(updateBlogRequest1);
 		restTemplate.exchange(
-				"/blogs/" + blogId1 + "/visibility", HttpMethod.PUT, updateVisibilityHttpEntity1, Void.class);
+				"/blogs/" + blogId1, HttpMethod.PUT, updateVisibilityHttpEntity1, Void.class);
 
 		// findAllPublicBlogs becomes 1
 		ResponseEntity<BlogPageResponse> findAllPublicBlogsAfterPrivate = restTemplate.exchange(

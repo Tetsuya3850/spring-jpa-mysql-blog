@@ -43,6 +43,14 @@ public class Blog {
         this.location = new Location(lat, lon);
     }
 
+    public Blog(Long id, String text, Visibility visibility, Double lat, Double lon, long version) {
+        this.id = id;
+        this.text = text;
+        this.visibility = visibility;
+        this.location = new Location(lat, lon);
+        this.version = version;
+    }
+
     @Embeddable
     @AllArgsConstructor
     @NoArgsConstructor

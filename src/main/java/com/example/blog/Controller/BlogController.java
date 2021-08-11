@@ -1,8 +1,8 @@
 package com.example.blog.Controller;
 
 import com.example.blog.Controller.Resource.BlogPageResponse;
-import com.example.blog.Controller.Resource.BlogRequest;
-import com.example.blog.Controller.Resource.VisibilityRequest;
+import com.example.blog.Controller.Resource.NewBlogRequest;
+import com.example.blog.Controller.Resource.UpdateBlogRequest;
 import com.example.blog.Entity.Blog;
 import com.example.blog.Service.BlogService;
 import lombok.AllArgsConstructor;
@@ -20,9 +20,9 @@ public class BlogController {
 
     @PostMapping("")
     Blog saveBlog(
-            @Valid @RequestBody BlogRequest blogRequest
+            @Valid @RequestBody NewBlogRequest newBlogRequest
     ) {
-        return blogService.saveBlog(blogRequest);
+        return blogService.saveBlog(newBlogRequest);
     }
 
     @GetMapping("")
@@ -36,12 +36,12 @@ public class BlogController {
         );
     }
 
-    @PutMapping("/{blogId}/visibility")
-    void updateVisibility(
+    @PutMapping("/{blogId}")
+    void updateBlog(
             @PathVariable Long blogId,
-            @Valid @RequestBody VisibilityRequest visibilityRequest
+            @Valid @RequestBody UpdateBlogRequest updateBlogRequest
     ) {
-        blogService.updateVisibility(blogId, visibilityRequest);
+        blogService.updateBlog(blogId, updateBlogRequest);
     }
 
     @DeleteMapping("/{blogId}")

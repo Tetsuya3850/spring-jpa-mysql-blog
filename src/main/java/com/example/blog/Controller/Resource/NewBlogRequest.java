@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class BlogRequest {
+public class NewBlogRequest {
     @NotNull
     @Size(min=2, max=30)
     private String text;
@@ -19,12 +19,4 @@ public class BlogRequest {
     private Visibility visibility;
 
     private Location location;
-
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Getter
-    public static class Location {
-        private Double lat;
-        private Double lon;
-    }
 }
